@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Portfolyo Detay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<main id="main">
+
+    @await Html.PartialAsync("_BreadCrumb.cshtml")
+
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
+        <div class="container">
+
+            <div class="row gy-4">
+
+                <div class="col-lg-8">
+                    <div class="portfolio-details-slider swiper">
+                        <div class="swiper-wrapper align-items-center">
+
+                            <div class="swiper-slide">
+                                <img src="~/assets/img/portfolio/arkitecture1.png" alt="">
+                            </div>
+
+                            <div class="swiper-slide">
+                                <img src="~/assets/img/portfolio/arkitecture2.png" alt="">
+                            </div>
+
+                            <div class="swiper-slide">
+                                <img src="~/assets/img/portfolio/arkitecture3.png" alt="">
+                            </div>
+
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="portfolio-info">
+                        <h3>Proje Bilgisi</h3>
+                        <ul>
+                            <li><strong>Kategori</strong>: Web design</li>
+                          @*  <li><strong>Müşteri</strong>: ASU Company</li>
+                            <li><strong>Proje Tarihi</strong>: 01 March, 2020</li>
+                            <li><strong>Proje Bağlantısı</strong>: <a href="#">www.example.com</a></li>*@
+                        </ul>
+                    </div>
+                    <div class="portfolio-description">
+                        <h2>Proje Açıklaması</h2>
+                        <p>
+                            Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
+                        </p>
+                        <a asp-action="PriceOffer">Fiyat Teklifi Al</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section><!-- End Portfolio Details Section -->
+
+</main>

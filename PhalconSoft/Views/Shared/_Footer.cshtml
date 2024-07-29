@@ -1,0 +1,79 @@
+﻿ <!-- ======= Footer ======= -->
+<footer id="footer">
+
+    <div class="footer-newsletter">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <h4> Abone Olun !</h4>
+                    <p>Yeni gelişmelerden haberdar olabilmek için abone olabilirsiniz.</p>
+                    <form asp-controller="NewsletterSubscriber" asp-action="Index" >
+                        <input type="email" name="email"><input type="submit" value="Abone Ol">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-3 col-md-6 footer-contact">
+                    <h3>@ViewData["Title"]</h3>
+                    <p>
+                        Belde Mah. 3209 Sokak <br>
+                        No:4 D.No:4<br>
+                        Batman/Merkez<br><br>
+                        @*<strong>Phone:</strong> +1 5589 55488 55<br>*@
+                        <strong>Email:</strong> iletisim@phalconsoft.com<br>
+                    </p>
+                </div>
+
+                <div class="col-lg-3 col-md-6 footer-links">
+                    <h4>Faydalı Bağlantılar</h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a asp-controller="Home" asp-action="AboutUs">Hakkımızda</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a asp-controller="Payment" asp-action="Index">Ödeme Yap</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a asp-controller="Home" asp-action="Corporate">Kurumsal</a></li>
+                        @*<li><i class="bx bx-chevron-right"></i> <a href="#">Servisler</a></li>*@
+                        @*<li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>*@
+                        @*<li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>*@
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 footer-links">
+                    <h4>Servislerimiz</h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a">Web Tasarım</a></li>
+                        @*<li><i class="bx bx-chevron-right"></i> <a href="#"></a></li>*@
+                        @*<li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>*@
+                        @*<li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>*@
+                        @*<li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>*@
+                    </ul>
+                </div>
+
+               @* <div class="col-lg-3 col-md-6 footer-links">
+                    <h4>Our Social Networks</h4>
+                    <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
+                    <div class="social-links mt-3">
+                        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                    </div>
+                </div>*@
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-4">
+        <div class="copyright">
+            &copy; Copyright <strong><span>@ViewData["Title"]</span></strong>. Tüm Hakları Saklıdır.
+        </div>
+      
+    </div>
+</footer><!-- End Footer -->

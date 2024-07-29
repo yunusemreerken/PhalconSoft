@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Inner Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<main id="main">
+
+    @await Html.PartialAsync("_BreadCrumb.cshtml")
+
+    <section class="inner-page">
+        <div class="container">
+            <p>
+                Example inner page template
+            </p>
+        </div>
+    </section>
+
+</main><!-- End #main -->
