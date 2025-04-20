@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>d0070091-38a9-4596-a892-7827bd3f23d7</UserSecretsId>
@@ -14,10 +14,6 @@
     <None Remove="Views\Error\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Remove="Migrations\20240711121833_InitialCreate.cs" />
-    <Compile Remove="Migrations\20240711121833_InitialCreate.Designer.cs" />
-  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
@@ -29,11 +25,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
+    <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
   </ItemGroup>
 
 </Project>

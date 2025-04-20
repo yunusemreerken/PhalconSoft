@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PhalconSoft.Models;
 
@@ -10,9 +11,11 @@ using PhalconSoft.Models;
 namespace PhalconSoft.Migrations
 {
     [DbContext(typeof(BlogContext))]
-    partial class PhalconsoftContextModelSnapshot : ModelSnapshot
+    [Migration("20250420121052_InitialCreate2")]
+    partial class InitialCreate2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

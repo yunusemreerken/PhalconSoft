@@ -1,4 +1,5 @@
-﻿<!-- ======= Contact Us Section ======= -->
+﻿@model PhalconSoft.Models.SendEmailViewModel
+<!-- ======= Contact Us Section ======= -->
 <section id="contact" class="contact section-bg">
     <div class="container" data-aos="fade-up">
 
@@ -35,31 +36,31 @@
             </div>
 
             <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-                <form asp-action="" role="form" class="php-email-form">
+                <form asp-action="SendEmail" role="form" class="php-email-form">
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label for="name">İsim</label>
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Lütfen isminizi giriniz" required>
+                            <label asp-for="NameSurname">İsim</label>
+                            <input asp-for="NameSurname" class="form-control" placeholder="Lütfen isminizi giriniz" required>
                         </div>
                         <div class="form-group col-md-6 mt-3 mt-md-0">
-                            <label for="name">Email adres</label>
-                            <input type="email" class="form-control" name="email" id="email" placeholder="Lütfen Email adresinizi giriniz" required>
+                            <label asp-for="Email">Email adres</label>
+                            <input asp-for="Email" class="form-control" placeholder="Lütfen Email adresinizi giriniz" required>
                         </div>
                     </div>
                     <div class="form-group mt-3">
-                        <label for="name">Konu</label>
-                        <input type="text" class="form-control" name="subject" id="subject" placeholder="Lütfen konuyu bir başlık giriniz" required>
+                        <label asp-for="Subject">Konu</label>
+                        <input asp-for="Subject" class="form-control" placeholder="Lütfen konuyu bir başlık giriniz" required>
                     </div>
                     <div class="form-group mt-3">
-                        <label for="name">Mesajınız</label>
-                        <textarea class="form-control" name="message" rows="10" required></textarea>
+                        <label asp-for="Message">Mesajınız</label>
+                        <textarea class="form-control" asp-for="Message" rows="10" required></textarea>
                     </div>
                     <div class="my-3">
                         <div class="loading">Loading</div>
                         <div class="error-message"></div>
                         <div class="sent-message">Your message has been sent. Thank you!</div>
                     </div>
-                    <div class="text-center"><button type="submit">Mesaj gönder</button></div>
+                    <div class="text-center"><input type="submit" value="Mesaj gönder"/></div>
                 </form>
             </div>
 
@@ -67,3 +68,5 @@
 
     </div>
 </section><!-- End Contact Us Section -->
+
+

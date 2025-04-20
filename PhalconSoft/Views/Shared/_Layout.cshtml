@@ -57,6 +57,9 @@
 
     <!-- Template Main JS File -->
     <script src="~/assets/js/main.js"></script>
+   <script src="~/js/site.js" asp-append-version="true"></script>
+   @await Component.InvokeAsync("Notyf")
+   @RenderSection("Scripts", required: false)
 
 </body>
 

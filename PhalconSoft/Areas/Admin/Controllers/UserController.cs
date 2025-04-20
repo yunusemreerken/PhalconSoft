@@ -12,9 +12,9 @@ namespace PhalconSoft.Areas.Admin.Controllers
     [Area("Admin")]
     public class UserController : Controller
     {
-        private readonly PhalconsoftContext _context;
+        private readonly BlogContext _context;
 
-        public UserController(PhalconsoftContext context)
+        public UserController(BlogContext context)
         {
             _context = context;
         }

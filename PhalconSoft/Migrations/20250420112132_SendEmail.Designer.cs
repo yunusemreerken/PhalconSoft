@@ -10,16 +10,16 @@ using PhalconSoft.Models;
 
 namespace PhalconSoft.Migrations
 {
-    [DbContext(typeof(PhalconsoftContext))]
-    [Migration("20250420065509_UpdateDatabase")]
-    partial class UpdateDatabase
+    [DbContext(typeof(BlogContext))]
+    [Migration("20250420112132_SendEmail")]
+    partial class SendEmail
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0")
+                .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -132,6 +132,31 @@ namespace PhalconSoft.Migrations
                     b.HasIndex("PortfolioNavigationId");
 
                     b.ToTable("PortfolioPhotos");
+                });
+
+            modelBuilder.Entity("PhalconSoft.Models.SendEmail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameSurname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subject")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SendEmails");
                 });
 
             modelBuilder.Entity("PhalconSoft.Models.User", b =>

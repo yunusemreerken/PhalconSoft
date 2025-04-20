@@ -1,3 +1,5 @@
+using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
 using Microsoft.EntityFrameworkCore;
 using PhalconSoft.Helpers;
 using PhalconSoft.Models;
@@ -8,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Default");
 
 // DbContext yapılandırması
-builder.Services.AddDbContext<PhalconsoftContext>(options =>
+builder.Services.AddDbContext<BlogContext>(options =>
 {
     options.UseSqlServer(connectionString, sqlOptions =>
     {
@@ -31,6 +33,7 @@ builder.Services.AddDbContext<PhalconsoftContext>(options =>
 
 // MVC Controller ekleniyor
 builder.Services.AddControllersWithViews();
+builder.Services.AddNotyf(config=> { config.DurationInSeconds = 10;config.IsDismissable = true;config.Position = NotyfPosition.BottomRight; });
 
 // Uygulama oluşturuluyor
 var app = builder.Build();
@@ -64,6 +67,10 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}"
 );
+
+app.UseNotyf();
+
+
 
 // Uygulamayı çalıştır
 app.Run();
