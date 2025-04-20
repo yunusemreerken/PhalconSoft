@@ -4,71 +4,66 @@ using PhalconSoft.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+// Bağlantı cümlesini al
 var connectionString = builder.Configuration.GetConnectionString("Default");
 
-// Replace 'YourDbContext' with the name of your own DbContext derived class.
-builder.Services.AddDbContext<PhalconsoftContext>(
-    dbContextOptions => dbContextOptions
-        .UseSqlServer(connectionString, 
-        sqlServerOptionsAction: sqlOptions =>
-        {
-            sqlOptions.EnableRetryOnFailure(
-                maxRetryCount: 5, // Maximum number of retry attempts
-                maxRetryDelay: TimeSpan.FromSeconds(30), // Maximum delay between retries
-                errorNumbersToAdd: null // Additional error numbers to include for retry
-            );
-        })
-        // The following three options help with debugging, but should
-        // be changed or removed for production.
-        .LogTo(Console.WriteLine, LogLevel.Information)
-
-        .EnableDetailedErrors()
-);
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
-var app = builder.Build();
-
-app.Use(async (context, next) =>
+// DbContext yapılandırması
+builder.Services.AddDbContext<PhalconsoftContext>(options =>
 {
-    context.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");//google harita g�r�nt�lenmesi i�in 
-    await next();
+    options.UseSqlServer(connectionString, sqlOptions =>
+    {
+        sqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: TimeSpan.FromSeconds(30),
+            errorNumbersToAdd: null
+        );
+    });
+
+    // Sadece geliştirme ortamında loglama ve detaylı hata
+    if (builder.Environment.IsDevelopment())
+    {
+        options
+            .LogTo(Console.WriteLine, LogLevel.Information)
+            .EnableDetailedErrors()
+            .EnableSensitiveDataLogging();
+    }
 });
 
-// Configure the HTTP request pipeline.
+// MVC Controller ekleniyor
+builder.Services.AddControllersWithViews();
+
+// Uygulama oluşturuluyor
+var app = builder.Build();
+
+// Hata yönetimi ve güvenlik ayarları
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
+// Global hata yakalama middleware’i
 app.UseMiddleware<ErrorHandlerMiddleware>();
-
 
 app.UseAuthorization();
 
+// Area route tanımı (Admin alanı için)
 app.MapAreaControllerRoute(
-      name: "adminArea",
-      areaName: "Admin",
-      pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
-    );
+    name: "adminArea",
+    areaName: "Admin",
+    pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
+);
 
+// Varsayılan route
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}"
-    );
-app.MapControllerRoute(
-   name: "site-haritasi",
-   pattern: "/sitemap.xml",
-   defaults: new { controller = "SiteMap", action = "Index" }
 );
 
+// Uygulamayı çalıştır
 app.Run();

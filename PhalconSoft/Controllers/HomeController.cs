@@ -6,12 +6,10 @@ namespace PhalconSoft.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly PhalconsoftContext _context;
 
-        public HomeController(ILogger<HomeController> logger, PhalconsoftContext context)
+        public HomeController(PhalconsoftContext context)
         {
-            _logger = logger;
             _context = context;
         }
         public IActionResult Index()
