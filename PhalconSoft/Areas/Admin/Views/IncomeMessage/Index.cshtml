@@ -1,0 +1,26 @@
+@model List<SendEmail>
+@{
+    ViewData["Title"] = "Gelen Mesaj Kutusu";
+}
+<table class="table">
+    <thead>
+    <tr>
+        <th>Email</th>
+        <th>Subject</th>
+        <th>Message</th>
+        <th>Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Email</td>
+            <td>@item.Subject</td>
+            <td>@item.Message</td>
+            <td>@item.Date.ToString("g")</td>
+        </tr>
+    }
+    </tbody>
+</table>
+

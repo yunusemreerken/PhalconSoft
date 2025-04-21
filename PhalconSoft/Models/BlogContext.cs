@@ -19,13 +19,8 @@ public partial class BlogContext : DbContext
     public virtual DbSet<Portfolio> Portfolios { get; set; }
 
     public virtual DbSet<PortfolioPhoto> PortfolioPhotos { get; set; }
-
     public virtual DbSet<User> Users { get; set; }
-
-    public virtual DbSet<string> SendEmails { get; set; }
-    
-    
-
+    public virtual DbSet<SendEmail> SendEmails { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Server=localhost,1433;Database=PhalconSoftDb;User Id=sa;Password=<YourPassword>;TrustServerCertificate=True;");
 

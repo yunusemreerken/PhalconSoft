@@ -1,5 +1,6 @@
 using AspNetCoreHero.ToastNotification;
 using AspNetCoreHero.ToastNotification.Extensions;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using PhalconSoft.Helpers;
 using PhalconSoft.Models;
@@ -30,6 +31,14 @@ builder.Services.AddDbContext<BlogContext>(options =>
             .EnableSensitiveDataLogging();
     }
 });
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login"; // giriş sayfanın yolu
+        options.LogoutPath = "/Account/Logout"; // çıkış sayfanın yolu
+        options.AccessDeniedPath = "/Account/AccessDenied"; // erişim reddedildiğinde yönlenecek sayfa
+    });
+builder.Services.AddAuthorization();
 
 // MVC Controller ekleniyor
 builder.Services.AddControllersWithViews().
@@ -68,21 +77,22 @@ app.UseRouting();
 // Global hata yakalama middleware’i
 app.UseMiddleware<ErrorHandlerMiddleware>();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 
 
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
     
     // Area route tanımı (Admin alanı için)
     endpoints.MapAreaControllerRoute(
         name: "adminArea",
         areaName: "Admin",
-        pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
-    );
+        pattern: "Admin/{controller=Home}/{action=Index}/{id?}");
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
 });
 
 

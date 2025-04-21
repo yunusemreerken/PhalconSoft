@@ -6,5 +6,6 @@ namespace PhalconSoft.Models
         public string? Email { get; set; }
         public string? Subject { get; set; }
         public string? Message { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
     }
 }
