@@ -32,8 +32,22 @@ builder.Services.AddDbContext<BlogContext>(options =>
 });
 
 // MVC Controller ekleniyor
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().
+    AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    });
 builder.Services.AddNotyf(config=> { config.DurationInSeconds = 10;config.IsDismissable = true;config.Position = NotyfPosition.BottomRight; });
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+});
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.CheckConsentNeeded = context => true;
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+    options.Secure = CookieSecurePolicy.Always;
+});
 
 // Uygulama oluşturuluyor
 var app = builder.Build();
@@ -47,6 +61,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseCookiePolicy(); // cookie ayarlarını uyguluyor
 
 app.UseRouting();
 
@@ -55,18 +70,22 @@ app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.UseAuthorization();
 
-// Area route tanımı (Admin alanı için)
-app.MapAreaControllerRoute(
-    name: "adminArea",
-    areaName: "Admin",
-    pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
-);
 
-// Varsayılan route
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}"
-);
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+    
+    // Area route tanımı (Admin alanı için)
+    endpoints.MapAreaControllerRoute(
+        name: "adminArea",
+        areaName: "Admin",
+        pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
+    );
+});
+
+
 
 app.UseNotyf();
 

@@ -22,7 +22,7 @@ public partial class BlogContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    public virtual DbSet<SendEmail> SendEmails { get; set; }
+    public virtual DbSet<string> SendEmails { get; set; }
     
     
 

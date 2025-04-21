@@ -5,11 +5,15 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
-                    <h4> Abone Olun !</h4>
+                    <h4> Abone Olun !</h4>          
                     <p>Yeni gelişmelerden haberdar olabilmek için abone olabilirsiniz.</p>
-                    <form asp-controller="NewsletterSubscriber" asp-action="Index" >
-                        <input type="email" name="email"><input type="submit" value="Abone Ol">
+                    <form id="newsletter-form" >
+                        @Html.AntiForgeryToken()
+        
+                        <input id="email" type="email" name="email"><input  type="submit" value="Abone Ol">
                     </form>
+                    <div id="resultMessage" class="mt-2"></div>
+
                 </div>
             </div>
         </div>
@@ -77,3 +81,31 @@
       
     </div>
 </footer><!-- End Footer -->
+ 
+ @section Scripts {
+     <script>
+         $("#newsletter-form").on("submit", function (e) {
+             e.preventDefault();
+
+             var token = $('input[name="__RequestVerificationToken"]').val();
+             var email = $("#email").val();
+
+             $.ajax({
+                 url: "/Newsletter/Subscribe",
+                 type: "POST",
+                 data: {
+                     __RequestVerificationToken: token,
+                     email: email
+                 },
+                 success: function (response) {
+                     $("#resultMessage").removeClass("text-danger").addClass("text-success").text(response.message);
+                 },
+                 error: function (xhr) {
+                     $("#resultMessage").removeClass("text-success").addClass("text-danger").text(xhr.responseJSON?.message || "Bir hata oluştu.");
+                 }
+             });
+         });
+
+
+     </script>
+ }

@@ -62,7 +62,7 @@ namespace PhalconSoft.Controllers
                 Subject = model.Subject,
                 Message = model.Message
             };
-            _context.SendEmails.Add(sendEmail);
+            // _context.SendEmails.Add(model);
             _context.SaveChanges();
             _notyf.Success("Success Notification");
 
@@ -70,5 +70,7 @@ namespace PhalconSoft.Controllers
             
             return Ok("İşlem Başarılı.");
         }
+        
+        
     }
 }
