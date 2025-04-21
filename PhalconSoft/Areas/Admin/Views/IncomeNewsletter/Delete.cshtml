@@ -1,0 +1,64 @@
+@* Silinecek olan SendEmail nesnesini model olarak alır *@
+@model PhalconSoft.Models.NewsletterSubscriber 
+@{
+    ViewData["Title"] = "E-posta Silme Onayı";
+    // Admin alanına özel layout kullanılıyorsa _ViewStart içinde belirtilir,
+    // belirtilmediyse buraya ekleyebilirsiniz:
+    // Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@* Uyarı Mesajı *@
+<h3 class="text-danger">Bu e-posta kaydını silmek istediğinizden emin misiniz?</h3>
+<p class="text-danger">Bu işlem geri alınamaz.</p>
+
+@* Controller'dan gelen ek uyarı mesajı varsa göster (Örn: Bağlı veri varsa silinemez uyarısı) *@
+@if (ViewData["UyariMesaji"] != null)
+{
+    <div class="alert alert-warning" role="alert">
+        @ViewData["UyariMesaji"]
+    </div>
+}
+
+<hr />
+
+@* Silinecek Kaydın Detayları *@
+@if (Model != null) // Modelin null olmadığını kontrol et
+{
+    <div>
+        <h4>Silinecek E-posta:</h4>
+        <dl class="row">
+            @* SendEmail modelinizdeki göstermek istediğiniz alanları buraya ekleyin *@
+            @* Örneğin: *@
+            <dt class="col-sm-9">
+                @Html.DisplayFor(model => model.Email) @* Özellik adını kendi modelinize göre değiştirin *@
+            </dt>
+            <dt class="col-sm-9">
+                @Html.DisplayFor(model => model.Active) @* Özellik adını kendi modelinize göre değiştirin *@
+            </dt>
+            @* Diğer önemli alanları da buraya ekleyebilirsiniz *@
+        </dl>
+
+        @* Silme işlemini gerçekleştirecek olan Form *@
+        <form asp-action="Delete" asp-controller="IncomeNewsletter" method="post"> @* POST isteği ile Delete action'ına gider *@
+            @Html.AntiForgeryToken() @* CSRF Koruması *@
+
+            @* Silinecek kaydın ID'sini sunucuya geri göndermek için gizli alan *@
+            <input type="hidden" asp-for="Id" />
+
+            @* Silme butonu (Eğer ViewData'da uyarı yoksa aktif olur) *@
+            <button type="submit" class="btn btn-danger" disabled="@(ViewData["UyariMesaji"] != null)">
+                Evet, Sil
+            </button> |
+
+            @* İptal edip listeye dönme linki *@
+            <a asp-action="Index" class="btn btn-secondary">İptal</a>
+        </form>
+    </div>
+}
+else // Eğer model null geldiyse (Controller'da NotFound döndürülmüş olmalı ama ek kontrol)
+{
+    <div class="alert alert-danger">Silinecek kayıt bulunamadı.</div>
+    <a asp-action="Index" class="btn btn-secondary">Listeye Geri Dön</a>
+}

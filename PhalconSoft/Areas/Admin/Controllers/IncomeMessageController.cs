@@ -65,29 +65,5 @@ public class IncomeMessageController : Controller
         // Index sayfasına yönlendir
         return RedirectToAction(nameof(Index));
     }
-    // GET: Admin/IncomeMessage/Details/5
-    // Belirtilen ID'ye sahip e-postanın detaylarını gösterir
-    public async Task<IActionResult> Details(int? id) // ID nullable olmalı
-    {
-        // 1. Gelen ID null mı kontrol et
-        if (id == null)
-        {
-            return NotFound(); // ID yoksa bulunamadı hatası ver
-        }
-
-        // 2. Veritabanından ilgili kaydı ID'ye göre bul
-        // Include ile ilişkili başka verileri çekmek gerekmiyorsa FindAsync daha performanslı olabilir
-        var sendEmail = await _context.SendEmails
-            // .Include(s => s.RelatedUser) // Eğer ilişkili başka tablo varsa ve göstermek istersen
-            .FirstOrDefaultAsync(m => m.Id == id); // ID'ye göre ilk kaydı getir
-
-        // 3. Kayıt bulundu mu kontrol et
-        if (sendEmail == null)
-        {
-            return NotFound(); // Kayıt yoksa bulunamadı hatası ver
-        }
-
-        // 4. Bulunan SendEmail nesnesini View'e model olarak gönder
-        return View(sendEmail);
-    }
+    
 }
