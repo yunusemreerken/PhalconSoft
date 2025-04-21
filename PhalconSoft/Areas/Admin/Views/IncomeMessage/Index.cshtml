@@ -9,6 +9,7 @@
         <th>Subject</th>
         <th>Message</th>
         <th>Date</th>
+        <th>Operations</th>
     </tr>
     </thead>
     <tbody>
@@ -19,6 +20,10 @@
             <td>@item.Subject</td>
             <td>@item.Message</td>
             <td>@item.Date.ToString("g")</td>
+            <td>
+                <a class="btn btn-danger" asp-controller="IncomeMessage" asp-action="Delete" asp-route-id="@item.Id">Sil</a>
+                <a class="btn btn-primary" asp-controller="IncomeMessage" asp-action="Details" asp-route-id="@item.Id">Detay</a>
+            </td>
         </tr>
     }
     </tbody>

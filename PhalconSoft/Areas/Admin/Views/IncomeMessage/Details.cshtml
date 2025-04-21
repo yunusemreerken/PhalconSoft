@@ -1,0 +1,78 @@
+@* Controller'dan SendEmail tipinde bir model bekleniyor *@
+@model PhalconSoft.Models.SendEmail 
+@{
+    ViewData["Title"] = "E-posta Detayları";
+    // Admin layout'u kullanılıyorsa:
+    // Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@* Model null gelirse diye küçük bir kontrol *@
+@if (Model == null)
+{
+    <div class="alert alert-warning">Detayları görüntülenecek kayıt bulunamadı.</div>
+    <a asp-action="Index" class="btn btn-secondary">Listeye Geri Dön</a>
+}
+else
+{
+    <div>
+        <h4>E-posta Kaydı</h4>
+        <hr />
+        @* Definition list (<dl>) ile verileri göstermek yaygındır *@
+        <dl class="row">
+            @* SendEmail modelinizdeki göstermek istediğiniz alanları buraya ekleyin *@
+            @* Html.DisplayNameFor modeldeki [Display] attribute'unu okur *@
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Id)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+
+            <dt class="col-sm-3">
+                Gönderen: @* @Html.DisplayNameFor(model => model.SenderEmail) *@
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.NameSurname) @* Özellik adını kendi modelinize göre değiştirin *@
+            </dd>
+            <dt class="col-sm-3">
+                Gönderen: @* @Html.DisplayNameFor(model => model.SenderEmail) *@
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Email) @* Özellik adını kendi modelinize göre değiştirin *@
+            </dd>
+            <dt class="col-sm-3">
+                Konu: @* @Html.DisplayNameFor(model => model.Subject) *@
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Subject) @* Özellik adını kendi modelinize göre değiştirin *@
+            </dd>
+
+            <dt class="col-sm-3">
+                Alınma Tarihi: @* @Html.DisplayNameFor(model => model.ReceivedDate) *@
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Date) @* Özellik adını kendi modelinize göre değiştirin *@
+            </dd>
+
+            <dt class="col-sm-3">
+                İçerik (Varsa): @* @Html.DisplayNameFor(model => model.Body) *@
+            </dt>
+            <dd class="col-sm-9" style="white-space: pre-wrap;"> @* İçeriğin düzgün görünmesi için *@
+                @Html.DisplayFor(model => model.Message) @* Özellik adını kendi modelinize göre değiştirin *@
+            </dd>
+
+            @* Modelinizdeki diğer tüm önemli alanları buraya ekleyin *@
+
+        </dl>
+    </div>
+    <hr />
+    <div>
+        @* Düzenleme sayfasına link (varsa) *@
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Sil</a> |
+
+        @* Listeleme sayfasına geri dönme linki *@
+        <a asp-action="Index" class="btn btn-secondary">Listeye Geri Dön</a>
+    </div>
+}
